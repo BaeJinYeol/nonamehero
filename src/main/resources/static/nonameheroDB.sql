@@ -1,0 +1,147 @@
+CREATE TABLE items (
+    item_id INT PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    icon_path VARCHAR(255),
+    hp INT,
+    power INT,
+    speed INT,
+    attack_speed INT,
+    critical_rate INT,
+    type INT
+);
+
+CREATE TABLE user_data (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    gold INT,
+    level INT
+);
+
+CREATE TABLE user_clear_zone (
+    user_id BIGINT NOT NULL,
+    clear_zone BOOLEAN,
+    idx INT, -- 위치를 보장하려면 인덱스 필드도 추가
+    PRIMARY KEY (user_id, idx),
+    FOREIGN KEY (user_id) REFERENCES user_data(id) ON DELETE CASCADE
+);
+
+CREATE TABLE user_own_items (
+    user_id BIGINT NOT NULL,
+    own_item INT,
+    idx INT,
+    PRIMARY KEY (user_id, idx),
+    FOREIGN KEY (user_id) REFERENCES user_data(id) ON DELETE CASCADE
+);
+
+CREATE TABLE user_put_on_item (
+    user_id BIGINT NOT NULL,
+    put_on_item INT,
+    idx INT,
+    PRIMARY KEY (user_id, idx),
+    FOREIGN KEY (user_id) REFERENCES user_data(id) ON DELETE CASCADE
+);
+
+CREATE TABLE user_put_on_dress (
+    user_id BIGINT NOT NULL,
+    put_on_dress INT,
+    idx INT,
+    PRIMARY KEY (user_id, idx),
+    FOREIGN KEY (user_id) REFERENCES user_data(id) ON DELETE CASCADE
+);
+
+
+INSERT INTO items (item_id, item_name, description, icon_path, hp, power, speed, attack_speed, critical_rate, type) VALUES
+(1, '가죽 갑옷', '가죽으로 만든 조잡한 갑옷이다.', 'Image\\Armors\\Armor_1', 10, 0, 5, 5, 0, 0),
+(2, '조잡한 철 갑옷', '조잡한 철로 만든 갑옷이다.', 'Image\\Armors\\Armor_2', 15, 0, 3, 3, 3, 0),
+(3, '철 갑옷', '공장에서 찍어낸 양산품이다.', 'Image\\Armors\\Armor_3', 20, 3, 3, 3, 5, 0),
+(4, '제국 병사의 철 갑옷', '옆 제국의 병사들이 쓰던 갑옷이다.', 'Image\\Armors\\Armor_4', 20, 5, 3, 3, 7, 0),
+(5, '가죽 끈', '이게 방어구...?', 'Image\\Armors\\Armor_5', 5, 0, 8, 8, 15, 0),
+(6, '가죽 허리띠', '이게 진짜 방어구...?', 'Image\\Armors\\Armor_6', 3, 0, 8, 8, 15, 0),
+(7, '경비병의 갑옷', '소규모 마을에서 사용하는 경비병의 갑옷이다.', 'Image\\Armors\\Armor_7', 13, 2, 5, 5, 5, 0),
+(8, '정규군의 갑옷', '왕국군이 사용하는 철갑옷이다.', 'Image\\Armors\\Armor_8', 18, 5, 5, 5, 5, 0),
+(9, '허름한 정규군의 갑옷', '전쟁으로 인해 많이 파손된 철갑옷이다.', 'Image\\Armors\\Armor_9', 13, 3, 5, 5, 4, 0),
+(10, '방랑 기사의 갑옷', '방랑 기사 제이콥의 갑옷이다.', 'Image\\Armors\\Armor_10', 23, 7, 3, 3, 7, 0),
+(11, '어느 용병의 갑옷', '용병들이 사용할거 같은 철 갑옷이다.', 'Image\\Armors\\Armor_11', 15, 5, 5, 5, 10, 0),
+(12, '고블린 갑옷', '고블린이 모험가를 보고 따라 만든 철갑옷이다.', 'Image\\Armors\\Armor_12', 7, 7, 7, 7, 7, 0),
+(13, '가죽으로 만든 무언가', '무슨 용도로 만들어진지 모르겠다.', 'Image\\Armors\\Armor_13', 4, 4, 10, 10, 10, 0),
+(14, '가죽 흉갑', '질좋은 가죽으로 만든 가죽 흉갑', 'Image\\Armors\\Armor_14', 25, 10, 6, 6, 7, 0),
+(15, '왕국군 기사의 갑옷', '왕국소속 대장장의가 심여를 기울여 만든 철갑옷이다.', 'Image\\Armors\\Armor_15', 10, 10, 5, 7, 10, 0),
+(16, '기사단장의 갑옷', '테스트설명', 'Image\\Armors\\Armor_16', 30, 15, 7, 7, 15, 0),
+(17, '근위기사단의 갑옷', '왕을 호위하는 근위기사단의 갑옷이다.', 'Image\\Armors\\Armor_17', 35, 20, 10, 10, 20, 0),
+(18, '최고급 가죽갑옷', '장인이 한땀 한땀 정성을 쏟은 가죽갑옷이다.', 'Image\\Armors\\Armor_18', 15, 10, 17, 17, 15, 0),
+(19, '가죽 끈2', '방어력이 있는지 의문이 든다.', 'Image\\Armors\\Armor_19', 7, 7, 7, 7, 7, 0),
+(20, '황금 허리띠', '장착하면 운이 좋아질거같은 느낌이 든다.', 'Image\\Armors\\Armor_20', 5, 5, 15, 15, 30, 0),
+(21, '방랑 기사의 망토', '방랑 기사가 어느 한 마을에 흘리고간 망토이다.', 'Image\\Backs\\Back_1', 15, 10, 5, 5, 20, 1),
+(22, '암흑기사의 망토', '마족의 수괴인 암흑기사의 망토이다.', 'Image\\Backs\\Back_2', 20, 15, 4, 5, 25, 1),
+(23, '허름한 모험가의 망토', '이름 모를 모험가의 망토', 'Image\\Backs\\Back_3', 10, 7, 5, 4, 15, 1),
+(24, '철조각', '이걸왜 등에 메는거지..?', 'Image\\Backs\\Back_4', 10, 15, 5, 5, 15, 1),
+(25, '모험가의 조잡한 화살통', '활을 들면 공속이 증가 할거같다.', 'Image\\Backs\\BowBack_1', 10, 10, 7, 7, 15, 1),
+(26, '레인저의 화살통', '활을 들면 공속이 매우 증가한다.', 'Image\\Backs\\BowBack_2', 10, 15, 10, 10, 20, 1),
+(27, '뱀파이어 백작의 망토', '와 멋지다 망토! 흡혈귀가 된 느낌이야!', 'Image\\Backs\\Soon_Back1', 20, 20, 10, 10, 20, 1),
+(28, '평범한 가죽 투구', '흔한 가죽 투구이다.', 'Image\\Helmets\\Helmet_1', 20, 5, 2, 2, 0, 6),
+(29, '경비병의 투구', '소규모 마을에서 사용하는 경비병의 투구이다.', 'Image\\Helmets\\Helmet_2', 30, 7, 2, 2, 5, 6),
+(30, '마법사의 모자', '흔한 마법사가 두르고 다니는 모자이다.', 'Image\\Helmets\\Helmet_3', 10, 5, 7, 7, 10, 6),
+(31, '왕국 병사의 투구', '왕국군 병사가 쓰던 투구이다. 누가 버리고 간걸까?', 'Image\\Helmets\\Helmet_4', 33, 10, 5, 5, 10, 6),
+(32, '십인장의 투구', '왕국군 십인장을 나타내기 위해 만든 투구이다.', 'Image\\Helmets\\Helmet_5', 35, 13, 7, 7, 15, 6),
+(33, '백인장의 투구', '왕국군 백인장을 나타내기 위해 만든 투구이다.', 'Image\\Helmets\\Helmet_6', 38, 15, 8, 8, 18, 6),
+(34, '수영모', '근처에 호수 어디 없나?', 'Image\\Helmets\\Helmet_7', 10, 10, 10, 10, 15, 6),
+(35, '방랑기사의 투구', '떠돌이 기사의 투구인것같다.', 'Image\\Helmets\\Helmet_8', 40, 18, 10, 10, 20, 6),
+(36, '왕국군 기사의 투구', '테스트설명', 'Image\\Helmets\\Helmet_9', 42, 20, 12, 12, 25, 6),
+(37, '수도 경비병의 투구', '수도를 지키는 경비병의 투구인듯하다.', 'Image\\Helmets\\Helmet_10', 40, 10, 7, 7, 10, 6),
+(38, '많이 파손된 백인장의 투구', '손상이 많이 되어있다 얼마나 격렬한 전투가 있었던 거지?', 'Image\\Helmets\\Helmet_11', 20, 15, 7, 7, 15, 6),
+(39, '용병의 철제 투구', '용병이 흔히 쓰는 철제 투구이다.', 'Image\\Helmets\\Helmet_12', 30, 15, 7, 7, 15, 6),
+(40, '모카데이저의 투구', '악마기사 모카데이저의 투구이다.', 'Image\\Helmets\\Helmet_13', 45, 20, 15, 15, 20, 6),
+(41, '의병의 투구', '의병들중 대장장이가 만든 투구이다.', 'Image\\Helmets\\Helmet_14', 30, 10, 5, 5, 10, 6),
+(42, '암살자의 모자', '어둠속에서 이 모자가 보인다는건 이미 죽었다는 것.', 'Image\\Helmets\\Helmet_15', 15, 40, 20, 5, 30, 6),
+(43, '바이킹의 투구', '바이킹들이 쓰던 투구다. 바이킹이 뭐지?', 'Image\\Helmets\\Helmet_16', 32, 12, 7, 7, 15, 6),
+(44, '오크 투사의 투구', '오크 투사가 쓰고 다니던 투구이다.', 'Image\\Helmets\\Helmet_17', 35, 18, 10, 10, 15, 6),
+(45, '리빙 데드의 투구', '리빙 아머와 같이 입으면 무슨일이 일어날지도?', 'Image\\Helmets\\Helmet_18', 25, 15, 8, 8, 15, 6),
+(46, '근위기사단장의 투구', '왕을 보필하던 근위기사단장의 투구이다.', 'Image\\Helmets\\Helmet_19', 45, 23, 12, 12, 20, 6),
+(47, '마왕의 투구(봉인)', '마왕의 투구이다. 하지만 무언가 힘에 의해 약해진거 같다.', 'Image\\Helmets\\Helmet_20', 35, 15, 8, 8, 18, 6),
+(48, '질좋은 가죽 모자', '솜씨좋은 대장장이가 만든 가죽모자이다.', 'Image\\Helmets\\Helmet_21', 23, 15, 15, 15, 15, 6),
+(49, '흑마법사의 모자', '흑마법사들이 피아 식별을 위해 착용하는 모자이다.', 'Image\\Helmets\\Helmet_22', 15, 20, 12, 7, 15, 6),
+(50, '나무꾼의 도끼', '나무꾼이 잃어버린 도끼다. 연못에 넣어볼까?', 'Image\\Weapons\\Axes\\Axe_1', 0, 20, 7, 7, 10, 7),
+(51, '헌트리스의 도끼', '들고있으면 콧노래가 나온다.', 'Image\\Weapons\\Axes\\Axe_2', 0, 20, 10, 10, 10, 7),
+(52, '마을 경비병의 폴암', '창은 너무 식상하잖아 우리 폴암으로 경비볼까?', 'Image\\Weapons\\Axes\\Axe_3', 0, 30, 5, 4, 15, 7),
+(53, '빛의 양날 도끼', '데마시아의 가리우스가 쓰던 도끼이다.', 'Image\\Weapons\\Axes\\Axe_4', 0, 35, 7, 7, 15, 7),
+(54, '란아의 폴암', '캐나다출신 모험가 란아의 폴암이다.', 'Image\\Weapons\\Axes\\Axe_5', 0, 40, 7, 7, 10, 7),
+(55, '광전사의 도끼', '겨울왕국의 올라프 형씨의 도끼이다.', 'Image\\Weapons\\Axes\\Axe_6', 0, 30, 10, 10, 15, 7),
+(56, '산적의 도끼', '금오산에 주둔해 있는 금오채 채주의 도끼이다.', 'Image\\Weapons\\Axes\\Axe_7', 0, 40, 13, 13, 18, 7),
+(57, '왕국군 궁병의 활', '왕국군에서 쓰는 평범한 활이다.', 'Image\\Weapons\\Bows\\Bow_1', 0, 15, 15, 15, 10, 7),
+(58, '사냥꾼의 활', '평범한 마을 사냥꾼이 사용하는 조잡한 활이다.', 'Image\\Weapons\\Bows\\Bow_2', 0, 10, 10, 10, 10, 7),
+(59, '엘프의 활', '엘프들에게 활을 돌려주면 좋은일이 생길지도?', 'Image\\Weapons\\Bows\\Bow_3', 0, 20, 20, 20, 30, 7),
+(60, '촛대', '백작의 저택에서 훔쳐온 촛대이다.', 'Image\\Weapons\\Spears\\Spear_1', 0, 10, 20, 30, 20, 7),
+(61, '기마병의 창', '적의 진영 무너트려라!', 'Image\\Weapons\\Spears\\Spear_2', 0, 35, 15, 5, 30, 7),
+(62, '경비병의 창', '마을 경비병이 쓰는 흔하디 흔한 창이다.', 'Image\\Weapons\\Spears\\Spear_3', 0, 20, 12, 10, 20, 7),
+(63, '렐의 창', '녹서스의 최고 기마병 렐의 창이다.', 'Image\\Weapons\\Spears\\Spear_4', 0, 50, 5, 5, 30, 7),
+(64, '트라이던트', '테스트설명', 'Image\\Weapons\\Spears\\Spear_5', 0, 25, 15, 13, 15, 7),
+(65, '아자르의 창', '슈미라의 황제 아자르의 창', 'Image\\Weapons\\Spears\\Spear_6', 0, 45, 20, 10, 30, 7),
+(66, '철제 소검', '철제로 만든 중간크기의 검이다.', 'Image\\Weapons\\Swords\\Sword_1', 0, 15, 12, 15, 15, 7),
+(67, '철제 장검', '공장에서 찍어낸 양산품 장검이다.', 'Image\\Weapons\\Swords\\Sword_2', 0, 20, 7, 10, 10, 7),
+(68, '용병의 검', '용병들이 흔히 사용하는 겅이다.', 'Image\\Weapons\\Swords\\Sword_3', 0, 17, 7, 10, 5, 7),
+(69, '각진검', '찌르기로는 절대 사용못할거같다.', 'Image\\Weapons\\Swords\\Sword_4', 0, 17, 10, 13, 10, 7),
+(70, '마왕의 검(봉인)', '마왕이 사용하는 검이다. 하지만 봉인되어 있는듯하다.', 'Image\\Weapons\\Swords\\Sword_5', 0, 25, 10, 15, 15, 7),
+(71, '부러진 장검', '부러진 건, 다시 붙이면 돼', 'Image\\Weapons\\Swords\\Sword_6', 0, 10, 15, 15, 15, 7),
+(72, '마왕의 검', '해방된 마왕의 검이다. 어두운 기운이 흘러나온다.', 'Image\\Weapons\\Swords\\Sword_7', 0, 50, 25, 15, 30, 7),
+(73, '도적의 단검', '도적들이 자주 사용하는 휴대용 단검이다.', 'Image\\Weapons\\Swords\\Sword_8', 0, 15, 15, 15, 10, 7),
+(74, '도적의 장검', '도적들이 위협할때 사용하는 장검이다.', 'Image\\Weapons\\Swords\\Sword_9', 0, 20, 7, 7, 15, 7),
+(75, '식칼', '주방에 있는 식칼이다.', 'Image\\Weapons\\Swords\\Sword_10', 0, 10, 20, 20, 0, 7),
+(76, '사막 시미터', '사막 용병들이 사용하는 시미터이다.', 'Image\\Weapons\\Swords\\Sword_11', 0, 20, 10, 10, 20, 7),
+(77, '부러진 용사의 검', '진정한 용사를 만나면 완성된다.', 'Image\\Weapons\\Swords\\Sword_12', 0, 10, 10, 10, 30, 7),
+(78, '용사의 검', '신의 힘이 담긴 검이다.', 'Image\\Weapons\\Swords\\Sword_13', 0, 50, 25, 15, 35, 7),
+(79, '견습 지팡이', '견습 마법사들이 사용하는 스테프다.', 'Image\\Weapons\\Wards\\Ward_1', 0, 10, 2, 1, 10, 7),
+(80, '매직 완드', '중급 마법사들이 사용하는 완드다.', 'Image\\Weapons\\Wards\\Ward_2', 0, 10, 2, 1, 10, 7),
+(81, '메테오 완드', '과거에 마법사가 이 완드로 메테로를 불렀다는 이야기가 있다.', 'Image\\Weapons\\Wards\\Ward_3', 0, 10, 2, 1, 10, 7),
+(82, '핏빛 완드', '리치킹이 사용하던 완드다.', 'Image\\Weapons\\Wards\\Ward_4', 0, 10, 2, 1, 10, 7),
+(83, '조잡한 방패', '대충 아무거나 주워온 것 같다.', 'Image\\Weapons\\Shields\\Shield_1', 10, 0, -1, -2, 0, 8),
+(84, '왕국 기사단의 방패', '기사단의 용맹함이 느껴진다.', 'Image\\Weapons\\Shields\\Shield_2', 25, 2, -5, -5, 0, 8),
+(85, '조잡한 나무방패', '부서지기 일보직전이다.', 'Image\\Weapons\\Shields\\Shield_3', 5, 0, -1, -2, 0, 8),
+(86, '라운드 우드 실드', '모험가들이 자주 애용한다.', 'Image\\Weapons\\Shields\\Shield_4', 10, 0, -2, -2, 0, 8),
+(87, '우드 실드', '모험가들이 자주 애용한다.', 'Image\\Weapons\\Shields\\Shield_5', 11, 0, -2, -2, 0, 8),
+(88, '단단한 우드 실드', '박달나무로 만들어서 단단하다.', 'Image\\Weapons\\Shields\\Shield_6', 15, 0, -2, -2, 0, 8),
+(89, '단단한 라운드 우드 실드', '박달나무로 만들어서 단단하다.', 'Image\\Weapons\\Shields\\Shield_7', 14, 0, -1, -1, 0, 8),
+(90, '왕국 병사의 방패', '병사들에게 보급되는 일반적인 나무 방패이다.', 'Image\\Weapons\\Shields\\Shield_8', 17, 0, -3, -3, 0, 8),
+(91, '장식용 방패', '장식용으로 만든 방패라 무르다.', 'Image\\Weapons\\Shields\\Shield_9', 5, 0, -5, -5, 0, 8),
+(92, '신성기사단의 방패', '신성기사단이 사용하는 방패, 즉시 돌려주는것을 권장한다.', 'Image\\Weapons\\Shields\\Shield_10', 30, 5, -6, -6, 0, 8),
+(93, '달토끼의 해머', '달토끼의 절구공이를 깎아서 만들었다.', 'Image\\Weapons\\SR\\F_SR_Hammer', 0, 50, 10, 5, 20, 7),
+(94, '달토끼의 모자', '토끼곤듀가 되어보자', 'Image\\Weapons\\SR\\F_SR_Helmet', 35, 15, 10, 10, 0, 6);
