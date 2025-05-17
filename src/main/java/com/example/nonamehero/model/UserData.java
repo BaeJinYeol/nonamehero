@@ -1,39 +1,48 @@
 package com.example.nonamehero.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
+@Table(name = "user_data")
 public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // 기본 키를 위한 id 필드
+    private Long id;
 
     @ElementCollection
-    @CollectionTable(name = "user_clear_zone", joinColumns = @jakarta.persistence.JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_clear_zone", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "clear_zone")
-    private List<Boolean> clearZone;
+    @Builder.Default
+    private List<Boolean> clearZone = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "user_own_items", joinColumns = @jakarta.persistence.JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_own_items", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "own_item")
-    private List<Integer> ownItems;
+    @Builder.Default
+    private List<Integer> ownItems = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "user_put_on_item", joinColumns = @jakarta.persistence.JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_put_on_item", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "put_on_item")
-    private List<Integer> putOnItem;
+    @Builder.Default
+    private List<Integer> putOnItem = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "user_put_on_dress", joinColumns = @jakarta.persistence.JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_put_on_dress", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "put_on_dress")
-    private List<Integer> putOnDress;
+    @Builder.Default
+    private List<Integer> putOnDress = new ArrayList<>();
 
     private int gold;
     private int level;
 }
+
